@@ -24,11 +24,11 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.containExactly
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import org.ossreviewtoolkit.analyzer.managers.utils.NuGetDependency
 
 import java.io.File
 
 import org.ossreviewtoolkit.downloader.VersionControlSystem
-import org.ossreviewtoolkit.model.Identifier
 import org.ossreviewtoolkit.utils.core.normalizeVcsUrl
 import org.ossreviewtoolkit.utils.test.DEFAULT_ANALYZER_CONFIGURATION
 import org.ossreviewtoolkit.utils.test.DEFAULT_REPOSITORY_CONFIGURATION
@@ -49,9 +49,9 @@ class NuGetFunTest : StringSpec() {
             val result = reader.getPackageReferences(packageFile)
 
             result should containExactly(
-                Identifier(type = "NuGet", namespace = "", name = "jQuery", version = "3.3.1"),
-                Identifier(type = "NuGet", namespace = "", name = "WebGrease", version = "1.5.2"),
-                Identifier(type = "NuGet", namespace = "", name = "foobar", version = "1.2.3")
+                NuGetDependency(name = "jQuery", version = "3.3.1", targetFramework = "net462"),
+                NuGetDependency(name = "WebGrease", version = "1.5.2", targetFramework = "net462"),
+                NuGetDependency(name = "foobar", version = "1.2.3", targetFramework = "net462")
             )
         }
 

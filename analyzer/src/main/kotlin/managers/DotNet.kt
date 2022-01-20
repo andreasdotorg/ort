@@ -30,10 +30,10 @@ import java.io.File
 
 import org.ossreviewtoolkit.analyzer.AbstractPackageManagerFactory
 import org.ossreviewtoolkit.analyzer.PackageManager
+import org.ossreviewtoolkit.analyzer.managers.utils.NuGetDependency
 import org.ossreviewtoolkit.analyzer.managers.utils.NuGetSupport
 import org.ossreviewtoolkit.analyzer.managers.utils.XmlPackageFileReader
 import org.ossreviewtoolkit.analyzer.managers.utils.resolveNuGetDependencies
-import org.ossreviewtoolkit.model.Identifier
 import org.ossreviewtoolkit.model.ProjectAnalyzerResult
 import org.ossreviewtoolkit.model.config.AnalyzerConfiguration
 import org.ossreviewtoolkit.model.config.RepositoryConfiguration
@@ -84,16 +84,18 @@ class DotNetPackageFileReader : XmlPackageFileReader {
         val version: String
     )
 
-    override fun getPackageReferences(definitionFile: File): Set<Identifier> {
-        val ids = mutableSetOf<Identifier>()
+    override fun getPackageReferences(definitionFile: File): Set<NuGetDependency> {
         val itemGroups = NuGetSupport.XML_MAPPER.readValue<List<ItemGroup>>(definitionFile)
 
-        itemGroups.forEach { itemGroup ->
-            itemGroup.packageReference?.forEach {
-                ids += Identifier(type = "NuGet", namespace = "", name = it.include, version = it.version)
-            }
+        return itemGroups.flatMapTo(mutableSetOf()) { itemGroup ->
+            itemGroup.packageReference?.map { packageReference ->
+                NuGetDependency(
+                    name = packageReference.include,
+                    version = packageReference.version,
+                    targetFramework = "",
+                    developmentDependency = false
+                )
+            }.orEmpty()
         }
-
-        return ids
     }
 }

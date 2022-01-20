@@ -286,8 +286,15 @@ private fun resolveLocalSpec(definitionFile: File): File? =
 private fun getIdentifier(name: String, version: String) =
     Identifier(type = "NuGet", namespace = "", name = name, version = version)
 
+data class NuGetDependency(
+    val name: String,
+    val version: String,
+    val targetFramework: String,
+    val developmentDependency: Boolean = false
+)
+
 interface XmlPackageFileReader {
-    fun getPackageReferences(definitionFile: File): Set<Identifier>
+    fun getPackageReferences(definitionFile: File): Set<NuGetDependency>
 }
 
 fun PackageManager.resolveNuGetDependencies(
@@ -304,7 +311,8 @@ fun PackageManager.resolveNuGetDependencies(
     val issues = mutableListOf<OrtIssue>()
 
     val references = reader.getPackageReferences(definitionFile)
-    support.buildDependencyTree(references, dependencies, packages, issues)
+    val ids = references.map { Identifier(type = "NuGet", namespace = "", name = it.name, version = it.version) }
+    support.buildDependencyTree(ids, dependencies, packages, issues)
 
     val project = getProject(definitionFile, workingDir, scope)
 
