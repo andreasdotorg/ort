@@ -46,7 +46,7 @@ internal class NuGetAllPackageData(
 
     // See https://docs.microsoft.com/en-us/nuget/api/registration-base-url-resource.
     @JsonIgnoreProperties(ignoreUnknown = true)
-    class PackageData(
+    data class PackageData(
         val catalogEntry: String,
         val packageContent: String
     )

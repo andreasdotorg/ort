@@ -22,6 +22,7 @@
 val digraphVersion: String by project
 val jacksonVersion: String by project
 val jrubyVersion: String by project
+val jsoupVersion: String by project
 val kotlinxCoroutinesVersion: String by project
 val mavenVersion: String by project
 val mavenResolverVersion: String by project
@@ -73,6 +74,7 @@ dependencies {
     implementation("com.vdurmont:semver4j:$semverVersion")
     implementation("org.apache.maven:maven-core:$mavenVersion")
     implementation("org.apache.maven:maven-compat:$mavenVersion")
+    implementation("org.jsoup:jsoup:$jsoupVersion")
 
     // The classes from the maven-resolver dependencies are not used directly but initialized by the Plexus IoC
     // container automatically. They are required on the classpath for Maven dependency resolution to work.
