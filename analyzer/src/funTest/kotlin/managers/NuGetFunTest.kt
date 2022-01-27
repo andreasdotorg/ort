@@ -29,6 +29,7 @@ import org.ossreviewtoolkit.analyzer.managers.utils.NuGetDependency
 import java.io.File
 
 import org.ossreviewtoolkit.downloader.VersionControlSystem
+import org.ossreviewtoolkit.model.writeValue
 import org.ossreviewtoolkit.utils.core.normalizeVcsUrl
 import org.ossreviewtoolkit.utils.test.DEFAULT_ANALYZER_CONFIGURATION
 import org.ossreviewtoolkit.utils.test.DEFAULT_REPOSITORY_CONFIGURATION
@@ -49,9 +50,15 @@ class NuGetFunTest : StringSpec() {
             val result = reader.getDependencies(packageFile)
 
             result should containExactly(
-                NuGetDependency(name = "jQuery", version = "3.3.1", targetFramework = "net462"),
-                NuGetDependency(name = "WebGrease", version = "1.5.2", targetFramework = "net462"),
-                NuGetDependency(name = "foobar", version = "1.2.3", targetFramework = "net462")
+                NuGetDependency(name = "System.Globalization", version = "4.3.0", targetFramework = "netcoreapp3.1"),
+                NuGetDependency(name = "System.Threading", version = "4.0.11", targetFramework = "netcoreapp3.1"),
+                NuGetDependency(
+                    name = "System.Threading.Tasks.Extensions",
+                    version = "4.5.4",
+                    targetFramework = "net45"
+                ),
+                NuGetDependency(name = "WebGrease", version = "1.5.2", targetFramework = "netcoreapp3.1"),
+                NuGetDependency(name = "foobar", version = "1.2.3", targetFramework = "netcoreapp3.1")
             )
         }
 
