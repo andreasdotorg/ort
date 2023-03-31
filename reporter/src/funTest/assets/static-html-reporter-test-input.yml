@@ -8,7 +8,7 @@ repository:
   vcs_processed:
     type: "Git"
     url: "https://github.com/oss-review-toolkit/ort.git"
-    revision: "master"
+    revision: "default"
     path: "analyzer/src/funTest/assets/projects/synthetic/gradle/lib"
   nested_repositories:
     sub/module:
@@ -89,7 +89,7 @@ analyzer:
       vcs_processed:
         type: "Git"
         url: "https://example.com/git"
-        revision: "master"
+        revision: "default"
         path: "project"
       homepage_url: ""
       scopes: []
