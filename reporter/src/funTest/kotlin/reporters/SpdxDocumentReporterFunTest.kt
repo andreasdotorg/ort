@@ -129,7 +129,7 @@ private fun patchExpectedResult(expectedResultFile: String, actualSpdxDocument: 
 private fun createOrtResult(): OrtResult {
     val analyzedVcs = VcsInfo(
         type = VcsType.GIT,
-        revision = "master",
+        revision = "default",
         resolvedRevision = "10203040",
         url = "https://github.com/path/first-project.git",
         path = ""
@@ -208,7 +208,7 @@ private fun createOrtResult(): OrtResult {
                             sourceArtifact = RemoteArtifact("https://some-host/first-package-sources.jar", Hash.NONE),
                             vcs = VcsInfo(
                                 type = VcsType.GIT,
-                                revision = "master",
+                                revision = "default",
                                 resolvedRevision = "deadbeef",
                                 url = "ssh://git@github.com/path/first-package-repo.git",
                                 path = "project-path"
@@ -319,7 +319,7 @@ private fun createOrtResult(): OrtResult {
                                 provenance = Provenance(
                                     vcsInfo = VcsInfo(
                                         type = VcsType.GIT,
-                                        revision = "master",
+                                        revision = "default",
                                         resolvedRevision = "deadbeef",
                                         url = "ssh://git@github.com/path/first-package-repo.git",
                                         path = "project-path"
